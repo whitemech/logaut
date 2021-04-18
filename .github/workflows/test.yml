@@ -26,10 +26,22 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run:  pip install tox poetry
-#    # set up environment depending on the platform in use
-#    - if: matrix.os == 'ubuntu-latest'
-#      name: Install dependencies (ubuntu-latest)
-#      run: ...
+    # set up environment depending on the platform in use
+    - if: matrix.os == 'ubuntu-latest'
+      name: Install Lydia (ubuntu-latest)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget
+        # install flex/bison
+        sudo apt-get purge -y flex
+        sudo apt-get purge -y bison
+        sudo apt-get install -y flex bison
+        sudo apt-get autoremove
+        # install boost
+        sudo apt-get install -y libboost-dev
+        sudo apt-get install -y graphviz libgraphviz-dev
+        # install MONA, CUDD, Syft, Lydia
+        sudo ./scripts/_ci-install-lydia-dependencies-ubuntu.sh
 #    - if: matrix.os == 'macos-latest'
 #      name: Install dependencies (macos-latest)
 #      run: ...
