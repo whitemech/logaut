@@ -60,7 +60,7 @@ class _MetaBackend(ABCMeta):
         logic_name = match.group(1)
 
         @wraps(func)
-        def validate(formula: Formula) -> DFA:
+        def validate(self, formula: Formula) -> DFA:
             """Validate the input formula to be of the right logic formalism."""
             expected_logic_name = logic_name
             actual_logic_name = formula.logic.value
@@ -68,7 +68,7 @@ class _MetaBackend(ABCMeta):
                 raise BadLogicFormulaException(
                     name, expected_logic_name, actual_logic_name
                 )
-            return func(formula)
+            return func(self, formula)
 
         return validate
 
@@ -95,62 +95,56 @@ class Backend(ABC, metaclass=_MetaBackend):
             f"operation '{operation}' is not supported by backend '{cls.__name__}'"
         )
 
-    @classmethod
-    def ltl2dfa(cls, formula: Formula) -> DFA:
+    def ltl2dfa(self, formula: Formula) -> DFA:
         """
         Transform an LTL formula into a DFA.
 
         :param formula: an LTL formula
         :return: the equivalent DFA
         """
-        raise cls.__not_supported_error(cls.ltl2dfa.__name__)
+        raise self.__not_supported_error(self.ltl2dfa.__name__)
 
-    @classmethod
-    def ldl2dfa(cls, formula: Formula) -> DFA:
+    def ldl2dfa(self, formula: Formula) -> DFA:
         """
         Transform an LDL formula into a DFA.
 
         :param formula: an LDL formula
         :return: the equivalent DFA
         """
-        raise cls.__not_supported_error(cls.ldl2dfa.__name__)
+        raise self.__not_supported_error(self.ldl2dfa.__name__)
 
-    @classmethod
-    def pltl2dfa(cls, formula: Formula) -> DFA:
+    def pltl2dfa(self, formula: Formula) -> DFA:
         """
         Transform a PLTL formula into a DFA.
 
         :param formula: a PLTL formula
         :return: the equivalent DFA
         """
-        raise cls.__not_supported_error(cls.pltl2dfa.__name__)
+        raise self.__not_supported_error(self.pltl2dfa.__name__)
 
-    @classmethod
-    def pldl2dfa(cls, formula: Formula) -> DFA:
+    def pldl2dfa(self, formula: Formula) -> DFA:
         """
         Transform a PLDL formula into a DFA.
 
         :param formula: a PLDL formula
         :return: the equivalent DFA
         """
-        raise cls.__not_supported_error(cls.pldl2dfa.__name__)
+        raise self.__not_supported_error(self.pldl2dfa.__name__)
 
-    @classmethod
-    def fol2dfa(cls, formula: Formula) -> DFA:
+    def fol2dfa(self, formula: Formula) -> DFA:
         """
         Transform a FOL formula into a DFA.
 
         :param formula: a FOL formula
         :return: the equivalent DFA
         """
-        raise cls.__not_supported_error(cls.fol2dfa.__name__)
+        raise self.__not_supported_error(self.fol2dfa.__name__)
 
-    @classmethod
-    def sol2dfa(cls, formula: Formula) -> DFA:
+    def sol2dfa(self, formula: Formula) -> DFA:
         """
         Transform a SOL formula into a DFA.
 
         :param formula: a SOL formula
         :return: the equivalent DFA
         """
-        raise cls.__not_supported_error(cls.sol2dfa.__name__)
+        raise self.__not_supported_error(self.sol2dfa.__name__)
