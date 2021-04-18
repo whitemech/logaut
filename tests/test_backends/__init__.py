@@ -20,25 +20,4 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""Implementation of the Lydia backend."""
-import shutil
-
-from logaut.backends.base import Backend
-
-
-class LydiaBackend(Backend):
-    """The Lydia backend."""
-
-    @classmethod
-    def __check_lydia_bin_available(cls):
-        """Check that the Lydia CLI tool is available."""
-        result = shutil.which("lydia")
-        if result is None:
-            raise Exception(
-                "Lydia binary is not available. Please follow"
-                "the installation instructions at https://github.com/whitemech/lydia."
-            )
-
-    def __post_init__(self):
-        """Do post-initialization checks."""
-        self.__check_lydia_bin_available()
+"""Tests for Logaut backends."""

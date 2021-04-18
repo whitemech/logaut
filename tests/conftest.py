@@ -20,26 +20,18 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""
-Backends for logaut.
-
-This subpackage contains backend abstract definitions
-and some of its implementations.
-"""
-from logaut._registry import Registry
-from logaut.backends.base import Backend
-
-_backend_registry = Registry[Backend]()
+"""Tests for Lydia backend."""
+import pytest
+from hypothesis import HealthCheck, settings
+from pylogics.syntax.base import reset_cache
 
 
-def register(*args, **kwargs) -> None:
-    """Register a backend."""
-    _backend_registry.register(*args, **kwargs)
+@pytest.fixture(scope="class", autouse=True)
+def reset_cache_fixture():
+    """Reset hash-consing global cache after each test function/class call."""
+    reset_cache()
 
 
-def make(*args, **kwargs) -> Backend:
-    """Instantiate a backend."""
-    return _backend_registry.make(*args, **kwargs)
-
-
-register(id_="lydia", entry_point="logaut.backends.lydia.core:LydiaBackend")
+suppress_health_checks_for_lark = settings(
+    suppress_health_check=[HealthCheck.too_slow, HealthCheck.filter_too_much]
+)

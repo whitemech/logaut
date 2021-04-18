@@ -20,8 +20,20 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""Main tests."""
+"""Tests for Lydia backend."""
+from hypothesis import given
+from hypothesis.extra.lark import from_lark
+from pylogics.parsers.ldl import __parser, parse_ldl
+from pythomata.core import DFA
+
+from logaut.core import ldl2dfa
+from tests.conftest import suppress_health_checks_for_lark
 
 
-def test_example():
-    """Test example."""
+@suppress_health_checks_for_lark
+@given(from_lark(__parser._parser))
+def test_lydia_backend(formula_str):
+    """Test lydia backend."""
+    formula = parse_ldl(formula_str)
+    output = ldl2dfa(formula, backend="lydia")
+    assert isinstance(output, DFA)

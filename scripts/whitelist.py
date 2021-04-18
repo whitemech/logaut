@@ -11,4 +11,4 @@ LDL  # unused variable (/home/marcofavorito/workfolder/logaut/logaut/backends/ba
 PLDL  # unused variable (/home/marcofavorito/workfolder/logaut/logaut/backends/base.py:41)
 FOL  # unused variable (/home/marcofavorito/workfolder/logaut/logaut/backends/base.py:42)
 SOL  # unused variable (/home/marcofavorito/workfolder/logaut/logaut/backends/base.py:43)
-LydiaBackend  # unused class (/home/marcofavorito/workfolder/logaut/logaut/backends/lydia.py:29)
+LydiaBackend  # unused class (/home/marcofavorito/workfolder/logaut/logaut/backends/core.py:29)
