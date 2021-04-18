@@ -33,8 +33,10 @@ class LydiaBackend(Backend):
         """Check that the Lydia CLI tool is available."""
         result = shutil.which("lydia")
         if result is None:
-            raise Exception("Lydia binary is not available. Please follow"
-                            "the installation instructions at https://github.com/whitemech/lydia.")
+            raise Exception(
+                "Lydia binary is not available. Please follow"
+                "the installation instructions at https://github.com/whitemech/lydia."
+            )
 
     def __post_init__(self):
         """Do post-initialization checks."""
