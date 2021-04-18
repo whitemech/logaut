@@ -20,26 +20,8 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""
-Backends for logaut.
+"""Transform a formula to a Lydia grammar."""
 
-This subpackage contains backend abstract definitions
-and some of its implementations.
-"""
-from logaut._registry import Registry
-from logaut.backends.base import Backend
+from pylogics.utils.to_string import to_string as pylogics_to_string
 
-_backend_registry = Registry[Backend]()
-
-
-def register(*args, **kwargs) -> None:
-    """Register a backend."""
-    _backend_registry.register(*args, **kwargs)
-
-
-def make(*args, **kwargs) -> Backend:
-    """Instantiate a backend."""
-    return _backend_registry.make(*args, **kwargs)
-
-
-register(id_="lydia", entry_point="logaut.backends.lydia.core:LydiaBackend")
+to_string = pylogics_to_string

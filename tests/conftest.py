@@ -20,25 +20,18 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""Implementation of the Lydia backend."""
-import shutil
+"""Tests for Lydia backend."""
+import pytest
+from hypothesis import HealthCheck, settings
+from pylogics.syntax.base import reset_cache
 
-from logaut.backends.base import Backend
+
+@pytest.fixture(scope="class", autouse=True)
+def reset_cache_fixture():
+    """Reset hash-consing global cache after each test function/class call."""
+    reset_cache()
 
 
-class LydiaBackend(Backend):
-    """The Lydia backend."""
-
-    @classmethod
-    def __check_lydia_bin_available(cls):
-        """Check that the Lydia CLI tool is available."""
-        result = shutil.which("lydia")
-        if result is None:
-            raise Exception(
-                "Lydia binary is not available. Please follow"
-                "the installation instructions at https://github.com/whitemech/lydia."
-            )
-
-    def __post_init__(self):
-        """Do post-initialization checks."""
-        self.__check_lydia_bin_available()
+suppress_health_checks_for_lark = settings(
+    suppress_health_check=[HealthCheck.too_slow, HealthCheck.filter_too_much]
+)

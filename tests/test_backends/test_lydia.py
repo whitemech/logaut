@@ -20,26 +20,22 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""
-Backends for logaut.
+"""Tests for Lydia backend."""
+from hypothesis import given
+from hypothesis.extra.lark import from_lark
+from pylogics.parsers.ldl import __parser, parse_ldl
+from pythomata.core import DFA
 
-This subpackage contains backend abstract definitions
-and some of its implementations.
-"""
-from logaut._registry import Registry
-from logaut.backends.base import Backend
-
-_backend_registry = Registry[Backend]()
+from logaut.core import ldl2dfa
+from tests.conftest import suppress_health_checks_for_lark
 
 
-def register(*args, **kwargs) -> None:
-    """Register a backend."""
-    _backend_registry.register(*args, **kwargs)
+@suppress_health_checks_for_lark
+@given(from_lark(__parser._parser))
+def test_lydia_backend(formula_str):
+    """Test lydia backend."""
+    print(formula_str)
+    formula = parse_ldl(formula_str)
+    output = ldl2dfa(formula, backend="lydia")
 
-
-def make(*args, **kwargs) -> Backend:
-    """Instantiate a backend."""
-    return _backend_registry.make(*args, **kwargs)
-
-
-register(id_="lydia", entry_point="logaut.backends.lydia.core:LydiaBackend")
+    assert isinstance(output, DFA)

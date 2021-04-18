@@ -20,8 +20,4 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""Main tests."""
-
-
-def test_example():
-    """Test example."""
+"""Tests for Logaut backends."""

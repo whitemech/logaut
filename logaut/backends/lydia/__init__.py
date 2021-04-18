@@ -20,26 +20,4 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""
-Backends for logaut.
-
-This subpackage contains backend abstract definitions
-and some of its implementations.
-"""
-from logaut._registry import Registry
-from logaut.backends.base import Backend
-
-_backend_registry = Registry[Backend]()
-
-
-def register(*args, **kwargs) -> None:
-    """Register a backend."""
-    _backend_registry.register(*args, **kwargs)
-
-
-def make(*args, **kwargs) -> Backend:
-    """Instantiate a backend."""
-    return _backend_registry.make(*args, **kwargs)
-
-
-register(id_="lydia", entry_point="logaut.backends.lydia.core:LydiaBackend")
+"""Implementation of the Lydia backend."""
