@@ -86,7 +86,7 @@ and then go to [http://localhost:8000](http://localhost:8000)
 
 logaut is released under the GNU Lesser General Public License v3.0 or later (LGPLv3+).
 
-Copyright 2020 Marco Favorito
+Copyright 2021 WhiteMech
 
 ## Authors
 
