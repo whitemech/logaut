@@ -29,7 +29,8 @@ from logaut.backends.base import Backend
 class LydiaBackend(Backend):
     """The Lydia backend."""
 
-    def __check_lydia_bin_available(self):
+    @classmethod
+    def __check_lydia_bin_available(cls):
         """Check that the Lydia CLI tool is available."""
         result = shutil.which("lydia")
         if result is None:
