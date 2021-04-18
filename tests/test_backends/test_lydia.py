@@ -34,8 +34,6 @@ from tests.conftest import suppress_health_checks_for_lark
 @given(from_lark(__parser._parser))
 def test_lydia_backend(formula_str):
     """Test lydia backend."""
-    print(formula_str)
     formula = parse_ldl(formula_str)
     output = ldl2dfa(formula, backend="lydia")
-
     assert isinstance(output, DFA)

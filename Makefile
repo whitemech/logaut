@@ -56,6 +56,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 	rm -fr .mypy_cache
 	rm -fr coverage.xml
+	rm -fr .hypothesis **/.hypothesis
 
 lint-all: black isort lint static bandit safety vulture pylint ## run all linters
 

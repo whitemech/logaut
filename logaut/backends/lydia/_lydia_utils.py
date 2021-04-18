@@ -148,7 +148,7 @@ def call_lydia(*args) -> str:
         output = result.stdout.decode()
         return output
     except Exception as e:
-        raise Exception("an error occurred while running lydia") from e
+        raise Exception(f"an error occurred while running lydia: {str(e)}") from e
 
 
 def postprocess_lydia_output(output: str) -> str:
