@@ -29,12 +29,11 @@ from pythomata.core import DFA
 from pythomata.impl.symbolic import SymbolicDFA
 
 from logaut.backends.base import Backend
-from logaut.backends.lydia._lydia_utils import (
-    call_lydia,
+from logaut.backends.common.process_mona_output import (
     parse_automaton,
     parse_mona_output,
-    postprocess_lydia_output,
 )
+from logaut.backends.lydia._lydia_utils import call_lydia, postprocess_lydia_output
 from logaut.backends.lydia.to_lydia_grammar import to_string
 
 

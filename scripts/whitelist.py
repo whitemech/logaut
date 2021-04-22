@@ -11,4 +11,7 @@ LDL  # unused variable (/home/marcofavorito/workfolder/logaut/logaut/backends/ba
 PLDL  # unused variable (/home/marcofavorito/workfolder/logaut/logaut/backends/base.py:41)
 FOL  # unused variable (/home/marcofavorito/workfolder/logaut/logaut/backends/base.py:42)
 SOL  # unused variable (/home/marcofavorito/workfolder/logaut/logaut/backends/base.py:43)
-LydiaBackend  # unused class (/home/marcofavorito/workfolder/logaut/logaut/backends/core.py:29)
+LydiaBackend  # unused class (/home/marcofavorito/workfolder/logaut/logaut/backends/lydia/core.py:40)
+to_string_weak_next  # unused function (/home/marcofavorito/workfolder/logaut/logaut/backends/lydia/to_lydia_grammar.py:41)
+to_string_weak_until  # unused function (/home/marcofavorito/workfolder/logaut/logaut/backends/lydia/to_lydia_grammar.py:47)
+to_string_strong_release  # unused function (/home/marcofavorito/workfolder/logaut/logaut/backends/lydia/to_lydia_grammar.py:60)
