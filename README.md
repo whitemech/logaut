@@ -54,11 +54,114 @@
 
 LOGics formalisms to AUTomata
 
+## What is `logaut`
+
+Logaut is to the logics-to-DFA problem
+what Keras is for Deep Learning:
+a wrapper to performant back-ends,
+but with human-friendly APIs.
+
 ## Install
 
 To install the package from PyPI:
 ```
-pip install logaut
+pip install logaut==0.1.0a0
+```
+
+Make sure to have [Lydia](https://github.com/whitemech/lydia) 
+installed on your machine.
+We suggest the following setup:
+
+- [Install Docker](https://www.docker.com/get-started)
+- Download the Lydia Docker image:
+```
+docker pull whitemech/lydia:latest
+```
+- Run the following commands:
+```
+echo 'docker run -v$(pwd):/home/default -it whitemech/lydia lydia $@' > lydia
+sudo chmod u+x lydia
+sudo mv lydia /usr/local/bin/
+```
+
+This will install an alias to the inline Docker image execution
+in your system PATH. Instead of `/usr/local/bin/`
+you may use another path which is still in the `PATH` variable.
+
+## Quickstart
+
+Now you are ready to go:
+```python
+from logaut import ltl2dfa
+from pylogics.parsers import parse_ltl
+formula = parse_ltl("F(a)")
+dfa = ltl2dfa(formula, backend="lydia")
+```
+
+The function `ltl2dfa` takes in input a 
+[pylogics](https://github.com/whitemech/pylogics) 
+`formula` and gives in output
+a [pythomata](https://github.com/whitemech/pythomata) DFA.
+
+Then, you can manipulate the DFA as done with Pythomata,
+e.g. to print:
+```
+dfa.to_graphviz().render("eventually.dfa")
+```
+
+Currently, the `lydia` backend only supports
+the `ltl` and `ldl` logics.
+
+The `ltlf2dfa`, based on 
+[LTLf2DFA](https://github.com/whitemech/LTLf2DFA/),
+supports `ltl` and `pltl`:
+```python
+from logaut import pltl2dfa
+from pylogics.parsers import parse_pltl
+formula = parse_pltl("a S b")
+dfa = pltl2dfa(formula, backend="ltlf2dfa")
+```
+
+## Write your own backend
+
+You can write your back-end by implementing
+the `Backend` interface:
+
+```python
+from logaut.backends.base import Backend
+
+class MyBackend(Backend):
+
+    def ltl2dfa(self, formula: Formula) -> DFA:
+        """From LTL to DFA."""
+
+    def ldl2dfa(self, formula: Formula) -> DFA:
+        """From LDL to DFA."""
+
+    def pltl2dfa(self, formula: Formula) -> DFA:
+        """From PLTL to DFA."""
+
+    def pldl2dfa(self, formula: Formula) -> DFA:
+        """From PLDL to DFA."""
+        
+    def fol2dfa(self, formula: Formula) -> DFA:
+        """From FOL to DFA."""
+
+    def mso2dfa(self, formula: Formula) -> DFA:
+        """From MSO to DFA."""
+```
+
+Then, you can register the custom backend
+class in the library:
+
+```python
+from logaut.backends import register
+register(id_="my_backend", entry_point="dotted.path.to.MyBackend")
+```
+
+And then, use it through the main entry point:
+```python
+dfa = ltl2dfa(formula, backend="my_backend")
 ```
 
 ## Tests

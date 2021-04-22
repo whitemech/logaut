@@ -43,3 +43,4 @@ def make(*args, **kwargs) -> Backend:
 
 
 register(id_="lydia", entry_point="logaut.backends.lydia.core:LydiaBackend")
+register(id_="ltlf2dfa", entry_point="logaut.backends.ltlf2dfa.core:LTLf2DFABackend")

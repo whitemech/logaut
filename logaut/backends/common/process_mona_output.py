@@ -111,7 +111,7 @@ class _MONAOutputWrapper:
             cast(
                 Match,
                 re.search(
-                    r"Automaton has ([0-9]+) state\(s\) and .* BDD-node\(s\)",
+                    r"Automaton has ([0-9]+) state(\(?s\)?)? and .* BDD-node(\(?s\)?)?",
                     self.output,
                 ),
             ).group(1)
@@ -132,6 +132,8 @@ class _MONAOutputWrapper:
             match = cast(
                 Match, re.search("State ([0-9]+): ([01X]+|) -> state ([0-9]+)", t)
             )
+            if match is None:
+                continue
             start_state = int(match.group(1))
             guard = match.group(2)
             end_state = int(match.group(3))

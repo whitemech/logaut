@@ -20,32 +20,32 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""Tests for Lydia backend."""
+"""Tests for LTLf2DFA backend."""
 from hypothesis import given
 from hypothesis.extra.lark import from_lark
-from pylogics.parsers.ldl import __parser as ldl_parser
-from pylogics.parsers.ldl import parse_ldl
 from pylogics.parsers.ltl import __parser as ltl_parser
 from pylogics.parsers.ltl import parse_ltl
+from pylogics.parsers.pltl import __parser as pltl_parser
+from pylogics.parsers.pltl import parse_pltl
 from pythomata.core import DFA
 
-from logaut.core import ldl2dfa, ltl2dfa
+from logaut.core import ltl2dfa, pltl2dfa
 from tests.conftest import suppress_health_checks_for_lark
 
 
 @suppress_health_checks_for_lark
-@given(from_lark(ldl_parser._parser))
-def test_lydia_backend_ldl(formula_str):
-    """Test lydia backend for LDL formulae."""
-    formula = parse_ldl(formula_str)
-    output = ldl2dfa(formula, backend="lydia")
+@given(from_lark(ltl_parser._parser))
+def test_ltlf2dfa_backend_ltl(formula_str):
+    """Test ltlf2dfa backend for LTL."""
+    formula = parse_ltl(formula_str)
+    output = ltl2dfa(formula, backend="ltlf2dfa")
     assert isinstance(output, DFA)
 
 
 @suppress_health_checks_for_lark
-@given(from_lark(ltl_parser._parser))
-def test_lydia_backend_ltl(formula_str):
-    """Test lydia backend for LTL formulae."""
-    formula = parse_ltl(formula_str)
-    output = ltl2dfa(formula, backend="lydia")
+@given(from_lark(pltl_parser._parser))
+def test_ltlf2dfa_backend_pltl(formula_str):
+    """Test lydia backend for PLTL."""
+    formula = parse_pltl(formula_str)
+    output = pltl2dfa(formula, backend="ltlf2dfa")
     assert isinstance(output, DFA)

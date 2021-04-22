@@ -40,7 +40,7 @@ class _Logics(Enum):
     LDL = "ldl"
     PLDL = "pldl"
     FOL = "fol"
-    SOL = "sol"
+    MSO = "mso"
 
 
 class _MetaBackend(ABCMeta):
@@ -140,11 +140,11 @@ class Backend(ABC, metaclass=_MetaBackend):
         """
         raise self.__not_supported_error(self.fol2dfa.__name__)
 
-    def sol2dfa(self, formula: Formula) -> DFA:
+    def mso2dfa(self, formula: Formula) -> DFA:
         """
-        Transform a SOL formula into a DFA.
+        Transform a MSO formula into a DFA.
 
-        :param formula: a SOL formula
+        :param formula: a MSO formula
         :return: the equivalent DFA
         """
-        raise self.__not_supported_error(self.sol2dfa.__name__)
+        raise self.__not_supported_error(self.mso2dfa.__name__)

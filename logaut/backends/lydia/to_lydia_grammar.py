@@ -24,6 +24,7 @@
 import functools
 
 from pylogics.syntax.base import Formula, Not, Or
+from pylogics.syntax.ldl import Test
 from pylogics.syntax.ltl import Always, StrongRelease, Until, WeakNext, WeakUntil
 from pylogics.utils.to_string import to_string as pylogics_to_string
 
@@ -36,6 +37,16 @@ def to_string(formula: Formula):
     By default, use the Pylogics' 'to_string' function.
     """
     return pylogics_to_string(formula)
+
+
+@to_string.register(Test)
+def to_string_test(regex: Test):
+    """
+    Convert a test expression to a Lydia-compliant formula.
+
+    It moves the question mark *after* the regular expression.
+    """
+    return f"({to_string(regex)})?"
 
 
 @to_string.register(WeakNext)
@@ -62,7 +73,8 @@ def to_string_strong_release(formula: StrongRelease) -> str:
     """
     Transform a strong release formula into string.
 
-    Note that the strong release is not supported (yet) by Lydia.
+    Note that the strong release is not supported (yet) by LTLf2DFA.
     We reduce it to weak until by duality.
     """
-    return to_string(Not(WeakUntil(*map(Not, formula.operands))))
+    result = to_string(WeakUntil(*map(Not, formula.operands)))
+    return f"!({result})"
