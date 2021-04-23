@@ -56,43 +56,44 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 	rm -fr .mypy_cache
 	rm -fr coverage.xml
+	rm -fr .hypothesis **/.hypothesis
 
 lint-all: black isort lint static bandit safety vulture pylint ## run all linters
 
 lint: ## check style with flake8
-	flake8 src/logaut tests scripts
+	flake8 logaut tests scripts
 
 static: ## static type checking with mypy
-	mypy src/logaut tests scripts
+	mypy logaut tests scripts
 
 isort: ## sort import statements with isort
-	isort src/logaut tests scripts
+	isort logaut tests scripts
 
 isort-check: ## check import statements order with isort
-	isort --check-only src/logaut tests scripts
+	isort --check-only logaut tests scripts
 
 black: ## apply black formatting
-	black src/logaut tests scripts
+	black logaut tests scripts
 
 black-check: ## check black formatting
-	black --check --verbose src/logaut tests scripts
+	black --check --verbose logaut tests scripts
 
 bandit: ## run bandit
-	bandit src/logaut tests scripts
+	bandit logaut tests scripts
 
 safety: ## run safety
 	safety
 
 pylint: ## run pylint
-	pylint src/logaut tests scripts
+	pylint logaut tests scripts
 
 vulture: ## run vulture
-	vulture src/logaut scripts/whitelist.py
+	vulture logaut scripts/whitelist.py
 
 test: ## run tests quickly with the default Python
 	pytest tests --doctest-modules \
-        src/logaut tests/ \
-        --cov=src/logaut \
+        logaut tests/ \
+        --cov=logaut \
         --cov-report=xml \
         --cov-report=html \
         --cov-report=term
@@ -101,7 +102,7 @@ test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source src/logaut -m pytest
+	coverage run --source logaut -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html

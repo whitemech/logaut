@@ -20,8 +20,23 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""From LOGics to AUTomata"""
+"""This module implements the library exceptions."""
 
-__version__ = "0.1.0a0"
 
-from .core import fol2dfa, ldl2dfa, ltl2dfa, mso2dfa, pldl2dfa, pltl2dfa
+class LogautException(Exception):
+    """Base library exception."""
+
+
+class NotImplementedBackendFunction(LogautException):
+    """Raise this exception when a backend does not support an operation."""
+
+
+class BadLogicFormulaException(LogautException):
+    """Raise this exception when the ."""
+
+    __ERROR_MSG = "wrong formula for method {method_name}: expected formalism '{expected}', found '{actual}'"
+
+    def __init__(self, method_name: str, expected: str, actual: str, *args, **kwargs):
+        """Initialize the exception."""
+        format_args = dict(method_name=method_name, expected=expected, actual=actual)
+        super().__init__(self.__ERROR_MSG.format(**format_args))

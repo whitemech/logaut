@@ -20,8 +20,27 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""From LOGics to AUTomata"""
+"""
+Backends for logaut.
 
-__version__ = "0.1.0a0"
+This subpackage contains backend abstract definitions
+and some of its implementations.
+"""
+from logaut._registry import Registry
+from logaut.backends.base import Backend
 
-from .core import fol2dfa, ldl2dfa, ltl2dfa, mso2dfa, pldl2dfa, pltl2dfa
+_backend_registry = Registry[Backend]()
+
+
+def register(*args, **kwargs) -> None:
+    """Register a backend."""
+    _backend_registry.register(*args, **kwargs)
+
+
+def make(*args, **kwargs) -> Backend:
+    """Instantiate a backend."""
+    return _backend_registry.make(*args, **kwargs)
+
+
+register(id_="lydia", entry_point="logaut.backends.lydia.core:LydiaBackend")
+register(id_="ltlf2dfa", entry_point="logaut.backends.ltlf2dfa.core:LTLf2DFABackend")

@@ -20,8 +20,4 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""From LOGics to AUTomata"""
-
-__version__ = "0.1.0a0"
-
-from .core import fol2dfa, ldl2dfa, ltl2dfa, mso2dfa, pldl2dfa, pltl2dfa
+"""Implement shared backend utilities."""

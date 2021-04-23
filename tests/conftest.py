@@ -20,8 +20,18 @@
 # along with logaut.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-"""From LOGics to AUTomata"""
+"""Tests for Lydia backend."""
+import pytest
+from hypothesis import HealthCheck, settings
+from pylogics.syntax.base import reset_cache
 
-__version__ = "0.1.0a0"
 
-from .core import fol2dfa, ldl2dfa, ltl2dfa, mso2dfa, pldl2dfa, pltl2dfa
+@pytest.fixture(scope="class", autouse=True)
+def reset_cache_fixture():
+    """Reset hash-consing global cache after each test function/class call."""
+    reset_cache()
+
+
+suppress_health_checks_for_lark = settings(
+    suppress_health_check=[HealthCheck.too_slow, HealthCheck.filter_too_much]
+)
