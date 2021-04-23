@@ -114,7 +114,13 @@ the `ltl` and `ldl` logics.
 
 The `ltlf2dfa`, based on 
 [LTLf2DFA](https://github.com/whitemech/LTLf2DFA/),
-supports `ltl` and `pltl`:
+supports `ltl` and `pltl`.
+First, install it at version `1.0.1`:
+```
+pip install git+https://github.com/whitemech/LTLf2DFA.git@develop#egg=ltlf2dfa
+```
+
+Then, you can use:
 ```python
 from logaut import pltl2dfa
 from pylogics.parsers import parse_pltl

@@ -795,21 +795,17 @@ python = ">=2.8"
 version = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "LTLf and PLTLf to Deterministic Finite-state Automata (DFA)"
 name = "ltlf2dfa"
 optional = false
 python-versions = "*"
-version = "1.0.1"
+version = "1.0.0.post0"
 
 [package.dependencies]
-lark-parser = ">=0.9.0,<1"
+lark-parser = "*"
 sympy = "*"
 
-[package.source]
-reference = "fe90ffbccb0c8cb62a4f07a355f7ff019af85f37"
-type = "git"
-url = "https://github.com/whitemech/ltlf2dfa.git"
 [[package]]
 category = "dev"
 description = "A Python implementation of Lunr.js"
@@ -1891,7 +1887,7 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [metadata]
-content-hash = "786805edb7a655d2ede7b7b574ee7b63cd4da3ea595a7e12d36a3636b70b7e61"
+content-hash = "de83cb710aafe043cfeeff700ad4b0dceb55452ab7c315e61ae11702c2df39e9"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -2266,7 +2262,10 @@ lazy-object-proxy = [
 livereload = [
     {file = "livereload-2.6.3.tar.gz", hash = "sha256:776f2f865e59fde56490a56bcc6773b6917366bce0c267c60ee8aaf1a0959869"},
 ]
-ltlf2dfa = []
+ltlf2dfa = [
+    {file = "ltlf2dfa-1.0.0.post0-py2.py3-none-any.whl", hash = "sha256:70f1ad0b870ae9602368792bd530d657b0e5f8ae3f47b3e5a5c13df94c114327"},
+    {file = "ltlf2dfa-1.0.0.post0.tar.gz", hash = "sha256:72b4122b0fcb92101803341e929ef1ac9fca8ffe4523bea3c123148d8a9098ce"},
+]
 lunr = [
     {file = "lunr-0.5.8-py2.py3-none-any.whl", hash = "sha256:aab3f489c4d4fab4c1294a257a30fec397db56f0a50273218ccc3efdbf01d6ca"},
     {file = "lunr-0.5.8.tar.gz", hash = "sha256:c4fb063b98eff775dd638b3df380008ae85e6cb1d1a24d1cd81a10ef6391c26e"},

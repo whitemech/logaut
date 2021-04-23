@@ -32,6 +32,7 @@ import re
 import shutil
 from typing import Match, Tuple, cast
 
+import ltlf2dfa
 from ltlf2dfa.parser.ltlf import LTLfParser
 from ltlf2dfa.parser.pltlf import PLTLfParser
 from pylogics.syntax.base import Formula, Logic
@@ -63,9 +64,22 @@ class LTLf2DFABackend(Backend):
                 "If instead it is installed, please check that it is in the system PATH."
             )
 
+    @classmethod
+    def __check_ltlf2dfa(cls):
+        """Check that the LTLf2DFA package is at the right version."""
+        is_right_version = ltlf2dfa.__version__ == "1.0.1"
+        if not is_right_version is None:
+            raise Exception(
+                "LTLf2DFA needs to be at version 1.0.1. "
+                "Please install it manually using:"
+                "\n"
+                "\tpip install git+https://github.com/whitemech/LTLf2DFA.git@develop#egg=ltlf2dfa"
+            )
+
     def __post_init__(self):
         """Do post-initialization checks."""
         self.__check_mona()
+        self.__check_ltlf2dfa()
 
     def ltl2dfa(self, formula: Formula) -> DFA:
         """From LTL to DFA."""
