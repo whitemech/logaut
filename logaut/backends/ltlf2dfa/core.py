@@ -68,7 +68,7 @@ class LTLf2DFABackend(Backend):
     def __check_ltlf2dfa(cls):
         """Check that the LTLf2DFA package is at the right version."""
         is_right_version = ltlf2dfa.__version__ == "1.0.1"
-        if not is_right_version is None:
+        if not is_right_version:
             raise Exception(
                 "LTLf2DFA needs to be at version 1.0.1. "
                 "Please install it manually using:"
