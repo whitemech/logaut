@@ -443,68 +443,59 @@ what Keras is for Deep Learning:
 a wrapper to performant back-ends,
 but with human-friendly APIs.</p>
 <h2 id="install">Install</h2>
-<p>To install the package from PyPI:</p>
-<div class="codehilite"><pre><span></span><code>pip install logaut==0.1.0a0
-</code></pre></div>
-
+<p>To install the package from PyPI:
+<div class="highlight"><pre><span></span><code>pip install logaut==0.1.0a0
+</code></pre></div></p>
 <p>Make sure to have <a href="https://github.com/whitemech/lydia">Lydia</a> 
 installed on your machine.
 We suggest the following setup:</p>
 <ul>
 <li><a href="https://www.docker.com/get-started">Install Docker</a></li>
-<li>Download the Lydia Docker image:</li>
-</ul>
-<div class="codehilite"><pre><span></span><code>docker pull whitemech/lydia:latest
-</code></pre></div>
-
-<ul>
-<li>Run the following commands:</li>
-</ul>
-<div class="codehilite"><pre><span></span><code>echo &#39;docker run -v$(pwd):/home/default -it whitemech/lydia lydia $@&#39; &gt; lydia
+<li>Download the Lydia Docker image:
+<div class="highlight"><pre><span></span><code>docker pull whitemech/lydia:latest
+</code></pre></div></li>
+<li>Run the following commands:
+<div class="highlight"><pre><span></span><code>echo &#39;docker run -v$(pwd):/home/default -it whitemech/lydia lydia $@&#39; &gt; lydia
 sudo chmod u+x lydia
 sudo mv lydia /usr/local/bin/
-</code></pre></div>
-
+</code></pre></div></li>
+</ul>
 <p>This will install an alias to the inline Docker image execution
 in your system PATH. Instead of <code>/usr/local/bin/</code>
 you may use another path which is still in the <code>PATH</code> variable.</p>
 <h2 id="quickstart">Quickstart</h2>
-<p>Now you are ready to go:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">logaut</span> <span class="kn">import</span> <span class="n">ltl2dfa</span>
+<p>Now you are ready to go:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">logaut</span> <span class="kn">import</span> <span class="n">ltl2dfa</span>
 <span class="kn">from</span> <span class="nn">pylogics.parsers</span> <span class="kn">import</span> <span class="n">parse_ltl</span>
 <span class="n">formula</span> <span class="o">=</span> <span class="n">parse_ltl</span><span class="p">(</span><span class="s2">&quot;F(a)&quot;</span><span class="p">)</span>
 <span class="n">dfa</span> <span class="o">=</span> <span class="n">ltl2dfa</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;lydia&quot;</span><span class="p">)</span>
-</code></pre></div>
-
+</code></pre></div></p>
 <p>The function <code>ltl2dfa</code> takes in input a 
 <a href="https://github.com/whitemech/pylogics">pylogics</a> 
 <code>formula</code> and gives in output
 a <a href="https://github.com/whitemech/pythomata">pythomata</a> DFA.</p>
 <p>Then, you can manipulate the DFA as done with Pythomata,
-e.g. to print:</p>
-<div class="codehilite"><pre><span></span><code>dfa.to_graphviz().render(&quot;eventually.dfa&quot;)
-</code></pre></div>
-
+e.g. to print:
+<div class="highlight"><pre><span></span><code>dfa.to_graphviz().render(&quot;eventually.dfa&quot;)
+</code></pre></div></p>
 <p>Currently, the <code>lydia</code> backend only supports
 the <code>ltl</code> and <code>ldl</code> logics.</p>
 <p>The <code>ltlf2dfa</code>, based on 
 <a href="https://github.com/whitemech/LTLf2DFA/">LTLf2DFA</a>,
 supports <code>ltl</code> and <code>pltl</code>.
-First, install it at version <code>1.0.1</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">git</span><span class="o">+</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">whitemech</span><span class="o">/</span><span class="n">LTLf2DFA</span><span class="p">.</span><span class="n">git</span><span class="nv">@develop</span><span class="n">#egg</span><span class="o">=</span><span class="n">ltlf2dfa</span><span class="w"></span>
-</code></pre></div>
-
-<p>Then, you can use:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">logaut</span> <span class="kn">import</span> <span class="n">pltl2dfa</span>
+First, install it at version <code>1.0.1</code>:
+<div class="highlight"><pre><span></span><code>pip install git+https://github.com/whitemech/LTLf2DFA.git@develop#egg=ltlf2dfa
+</code></pre></div></p>
+<p>Then, you can use:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">logaut</span> <span class="kn">import</span> <span class="n">pltl2dfa</span>
 <span class="kn">from</span> <span class="nn">pylogics.parsers</span> <span class="kn">import</span> <span class="n">parse_pltl</span>
 <span class="n">formula</span> <span class="o">=</span> <span class="n">parse_pltl</span><span class="p">(</span><span class="s2">&quot;a S b&quot;</span><span class="p">)</span>
 <span class="n">dfa</span> <span class="o">=</span> <span class="n">pltl2dfa</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;ltlf2dfa&quot;</span><span class="p">)</span>
-</code></pre></div>
-
+</code></pre></div></p>
 <h2 id="write-your-own-backend">Write your own backend</h2>
 <p>You can write your back-end by implementing
 the <code>Backend</code> interface:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">logaut.backends.base</span> <span class="kn">import</span> <span class="n">Backend</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">logaut.backends.base</span> <span class="kn">import</span> <span class="n">Backend</span>
 
 <span class="k">class</span> <span class="nc">MyBackend</span><span class="p">(</span><span class="n">Backend</span><span class="p">):</span>
 
@@ -526,17 +517,14 @@ the <code>Backend</code> interface:</p>
     <span class="k">def</span> <span class="nf">mso2dfa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">formula</span><span class="p">:</span> <span class="n">Formula</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DFA</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;From MSO to DFA.&quot;&quot;&quot;</span>
 </code></pre></div>
-
 <p>Then, you can register the custom backend
 class in the library:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">logaut.backends</span> <span class="kn">import</span> <span class="n">register</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">logaut.backends</span> <span class="kn">import</span> <span class="n">register</span>
 <span class="n">register</span><span class="p">(</span><span class="n">id_</span><span class="o">=</span><span class="s2">&quot;my_backend&quot;</span><span class="p">,</span> <span class="n">entry_point</span><span class="o">=</span><span class="s2">&quot;dotted.path.to.MyBackend&quot;</span><span class="p">)</span>
 </code></pre></div>
-
-<p>And then, use it through the main entry point:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dfa</span> <span class="o">=</span> <span class="n">ltl2dfa</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;my_backend&quot;</span><span class="p">)</span>
-</code></pre></div>
-
+<p>And then, use it through the main entry point:
+<div class="highlight"><pre><span></span><code><span class="n">dfa</span> <span class="o">=</span> <span class="n">ltl2dfa</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;my_backend&quot;</span><span class="p">)</span>
+</code></pre></div></p>
 <h2 id="tests">Tests</h2>
 <p>To run tests: <code>tox</code></p>
 <p>To run only the code tests: <code>tox -e py3.7</code></p>
