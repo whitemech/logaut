@@ -108,15 +108,15 @@ def fol2dfa(
     return _call_method(formula, backend, fol2dfa.__name__, **backend_options)
 
 
-def sol2dfa(
+def mso2dfa(
     formula: Formula, backend: str = _DEFAULT_BACKEND, **backend_options
 ) -> DFA:
     """
-    From SOL to DFA.
+    From MSO to DFA.
 
     :param formula: the formula to translate.
     :param backend: the backend to use.
     :param backend_options: options to pass to the backend.
     :return: the DFA.
     """
-    return _call_method(formula, backend, sol2dfa.__name__, **backend_options)
+    return _call_method(formula, backend, mso2dfa.__name__, **backend_options)

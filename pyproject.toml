@@ -35,6 +35,7 @@ include = []
 python = "^3.7"
 pylogics = "^0.1.0a0"
 pythomata = "^0.3.2"
+ltlf2dfa = { git = "https://github.com/whitemech/ltlf2dfa.git", branch = "develop" }
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.1"
