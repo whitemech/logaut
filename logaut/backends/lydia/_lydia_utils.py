@@ -46,7 +46,7 @@ def postprocess_lydia_output(output: str) -> str:
     :return: the output associated to the DFA.
     """
     regex = re.compile(
-        r"(?<=Computed automaton:\n).*(?=\n\[2)", flags=re.MULTILINE | re.DOTALL
+        r"(?<=Computed automaton:\r\n).*(?=^\[2)", flags=re.MULTILINE | re.DOTALL
     )
     match = regex.search(output)
     if match is None:
