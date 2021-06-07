@@ -6,7 +6,7 @@ authors = ["Marco Favorito <favorito@diag.uniroma1.it>"]
 license = "GPL-3.0-or-later"
 readme = "README.md"
 homepage = "https://marcofavorito.me/logaut"
-repository = "https://github.com/marcofavorito/logaut.git"
+repository = "https://github.com/whitemech/logaut.git"
 documentation = "https://marcofavorito.me/logaut"
 keywords = []
 classifiers = [
@@ -27,8 +27,8 @@ include = []
 #script_name = 'path/to/script'
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/marcofavorito/logaut/issues"
-"Pull Requests" = "https://github.com/marcofavorito/logaut/pulls"
+"Bug Tracker" = "https://github.com/whitemech/logaut/issues"
+"Pull Requests" = "https://github.com/whitemech/logaut/pulls"
 
 
 [tool.poetry.dependencies]
