@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "logaut"
-version = "0.1.0a0"
+version = "0.1.0"
 description = "From logic to automata."
 authors = ["Marco Favorito <favorito@diag.uniroma1.it>"]
 license = "GPL-3.0-or-later"
@@ -33,7 +33,7 @@ include = []
 
 [tool.poetry.dependencies]
 python = "^3.7"
-pylogics = "^0.1.0a0"
+pylogics = "^0.1.0"
 pythomata = "^0.3.2"
 
 [tool.poetry.dev-dependencies]
