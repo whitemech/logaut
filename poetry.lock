@@ -789,17 +789,21 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 version = "1.6.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "LTLf and PLTLf to Deterministic Finite-state Automata (DFA)"
 name = "ltlf2dfa"
 optional = false
 python-versions = "*"
-version = "1.0.0.post0"
+version = "1.0.1"
 
 [package.dependencies]
-lark-parser = "*"
+lark-parser = ">=0.9.0,<1"
 sympy = "*"
 
+[package.source]
+reference = "fe90ffbccb0c8cb62a4f07a355f7ff019af85f37"
+type = "git"
+url = "https://github.com/francescofuggitti/ltlf2dfa.git"
 [[package]]
 category = "dev"
 description = "Python implementation of Markdown."
@@ -1194,7 +1198,7 @@ wcwidth = "*"
 [[package]]
 category = "dev"
 description = "Run a subprocess in a pseudo terminal"
-marker = "sys_platform != \"win32\" or os_name != \"nt\" or python_version >= \"3.3\" and sys_platform != \"win32\""
+marker = "python_version >= \"3.3\" and sys_platform != \"win32\" or sys_platform != \"win32\" or os_name != \"nt\" or python_version >= \"3.3\" and sys_platform != \"win32\" and (python_version >= \"3.3\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -1882,7 +1886,7 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [metadata]
-content-hash = "6d4bb9bfb6d5353a3a646ebd85da32b178416b95b00736f1c787ff3dcb9d39a8"
+content-hash = "d38c2da4db42390e5490d06159991149d8804b3c1877a63b401d42df7e00c4af"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -2250,10 +2254,7 @@ lazy-object-proxy = [
     {file = "lazy_object_proxy-1.6.0-cp39-cp39-win32.whl", hash = "sha256:1fee665d2638491f4d6e55bd483e15ef21f6c8c2095f235fef72601021e64f61"},
     {file = "lazy_object_proxy-1.6.0-cp39-cp39-win_amd64.whl", hash = "sha256:f5144c75445ae3ca2057faac03fda5a902eff196702b0a24daf1d6ce0650514b"},
 ]
-ltlf2dfa = [
-    {file = "ltlf2dfa-1.0.0.post0-py2.py3-none-any.whl", hash = "sha256:70f1ad0b870ae9602368792bd530d657b0e5f8ae3f47b3e5a5c13df94c114327"},
-    {file = "ltlf2dfa-1.0.0.post0.tar.gz", hash = "sha256:72b4122b0fcb92101803341e929ef1ac9fca8ffe4523bea3c123148d8a9098ce"},
-]
+ltlf2dfa = []
 markdown = [
     {file = "Markdown-3.3.4-py3-none-any.whl", hash = "sha256:96c3ba1261de2f7547b46a00ea8463832c921d3f9d6aba3f255a6f71386db20c"},
     {file = "Markdown-3.3.4.tar.gz", hash = "sha256:31b5b491868dcc87d6c24b7e3d19a0d730d59d3e46f4eea6430a321bed387a49"},

@@ -32,21 +32,12 @@ from pylogics.syntax.base import (
     FalseFormula,
     Formula,
     Implies,
+    Logic,
     Not,
     Or,
     TrueFormula,
 )
-from pylogics.syntax.ldl import (
-    Box,
-    Diamond,
-    LDLFalse,
-    LDLTrue,
-    Prop,
-    Seq,
-    Star,
-    Test,
-    Union,
-)
+from pylogics.syntax.ldl import Box, Diamond, Prop, Seq, Star, Test, Union
 from pylogics.syntax.ltl import (
     Always,
     Eventually,
@@ -111,28 +102,16 @@ def to_string_atomic(formula: AbstractAtomic) -> str:
     return formula.name
 
 
-@to_string.register(TrueFormula)
-def to_string_true(_formula: TrueFormula) -> str:
-    """Transform the "true" formula into string."""
-    return "true"
-
-
-@to_string.register(FalseFormula)
-def to_string_false(_formula: FalseFormula) -> str:
-    """Transform the "false" formula into string."""
-    return "false"
-
-
 @to_string.register(Next)
 def to_string_next(formula: Next) -> str:
     """Transform a next formula into string."""
-    return f"X({to_string(formula.argument)})"
+    return f"X[!]({to_string(formula.argument)})"
 
 
 @to_string.register(WeakNext)
 def to_string_weak_next(formula: WeakNext):
     """Transform the weak next formula."""
-    return f"W({to_string(formula.argument)})"
+    return f"X({to_string(formula.argument)})"
 
 
 @to_string.register(Until)
@@ -208,16 +187,16 @@ def to_string_pltl_historically(formula: Historically) -> str:
     return f"H({to_string(formula.argument)})"
 
 
-@to_string.register(LDLTrue)
-def to_string_ldl_true(_formula: LDLTrue) -> str:
-    """Transform an LDL true into string."""
-    return "tt"
+@to_string.register(TrueFormula)
+def to_string_ldl_true(formula: TrueFormula) -> str:
+    """Transform a true into string."""
+    return "tt" if formula.logic != Logic.PL else "true"
 
 
-@to_string.register(LDLFalse)
-def to_string_ldl_false(_formula: LDLFalse) -> str:
-    """Transform an LDL false into string."""
-    return "ff"
+@to_string.register(FalseFormula)
+def to_string_ldl_false(formula: FalseFormula) -> str:
+    """Transform a false into string."""
+    return "ff" if formula.logic != Logic.PL else "false"
 
 
 @to_string.register(Diamond)

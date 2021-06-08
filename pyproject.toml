@@ -35,6 +35,7 @@ include = []
 python = "^3.7"
 pylogics = "^0.1.0"
 pythomata = "^0.3.2"
+ltlf2dfa = {git = "https://github.com/francescofuggitti/ltlf2dfa.git", rev = "develop"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.1"
@@ -64,7 +65,6 @@ markdown = "^3.3.4"
 twine = "^3.3.0"
 hypothesis = "^6.10.0"
 hypothesis-pytest = "^0.19.0"
-ltlf2dfa = "^1.0.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
