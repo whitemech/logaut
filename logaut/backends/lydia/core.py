@@ -77,7 +77,7 @@ def _process_formula(formula: Formula) -> SymbolicDFA:
     """
     formula_str = to_string(formula)
     output = call_lydia(
-        f"--logic={formula.logic.value}f", f"--inline={formula_str}", "-p"
+        f"--logic={formula.logic.value}f", f"--inline='{formula_str}'", "-p"
     )
     mona_output_string = postprocess_lydia_output(output)
     mona_output = parse_mona_output(mona_output_string)

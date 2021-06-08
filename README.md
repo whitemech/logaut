@@ -65,7 +65,7 @@ but with human-friendly APIs.
 
 To install the package from PyPI:
 ```
-pip install logaut==0.1.0a0
+pip install logaut==0.1.0
 ```
 
 Make sure to have [Lydia](https://github.com/whitemech/lydia) 
@@ -77,9 +77,11 @@ We suggest the following setup:
 ```
 docker pull whitemech/lydia:latest
 ```
-- Run the following commands:
+- Make the Docker image executable under the name `lydia`.
+  On Linux and MacOS machines, the following commands should work:
 ```
-echo 'docker run -v$(pwd):/home/default -it whitemech/lydia lydia $@' > lydia
+echo '#!/usr/bin/env sh' > lydia
+echo 'docker run -v$(pwd):/home/default whitemech/lydia lydia $@' >> lydia
 sudo chmod u+x lydia
 sudo mv lydia /usr/local/bin/
 ```
