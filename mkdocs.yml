@@ -1,6 +1,7 @@
 site_name: Logaut Docs
-repo_name: 'marcofavorito/logaut'
-repo_url: https://github.com/whitemech/logaut
+site_url: "https://whitemech.github.io/logaut/" 
+repo_name: 'whitemech/logaut'
+repo_url: "https://github.com/whitemech/logaut"
 
 nav:
 - Home: index.md
