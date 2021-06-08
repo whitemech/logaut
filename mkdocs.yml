@@ -1,6 +1,6 @@
-site_name: My Docs
+site_name: Logaut Docs
 repo_name: 'marcofavorito/logaut'
-repo_url: https://github.com/marcofavorito/logaut
+repo_url: https://github.com/whitemech/logaut
 
 nav:
 - Home: index.md
@@ -14,6 +14,11 @@ theme:
 markdown_extensions:
 - codehilite
 - pymdownx.arithmatex
+- pymdownx.highlight
+- pymdownx.superfences
+- pymdownx.emoji:
+    emoji_index: !!python/name:materialx.emoji.twemoji
+    emoji_generator: !!python/name:materialx.emoji.to_svg
 - markdown_include.include:
     base_path: docs
 
