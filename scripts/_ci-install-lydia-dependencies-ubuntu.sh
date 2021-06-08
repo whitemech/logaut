@@ -32,7 +32,7 @@ sudo make install
 echo "Syft installed."
 
 echo "Installing Lydia..."
-wget https://github.com/whitemech/lydia/releases/download/v0.1.0/lydia
+wget https://github.com/whitemech/lydia/releases/download/v0.1.1/lydia
 mv ./lydia /usr/local/bin/
 chmod +x /usr/local/bin/lydia
 echo "Lydia installed."
