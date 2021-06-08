@@ -18,19 +18,19 @@
   <a href="">
     <img alt="PyPI - Wheel" src="https://img.shields.io/pypi/wheel/logaut">
   </a>
-  <a href="https://github.com/marcofavorito/logaut/blob/master/LICENSE">
+  <a href="https://github.com/whitemech/logaut/blob/master/LICENSE">
     <img alt="GitHub" src="https://img.shields.io/github/license/marcofavorito/logaut">
   </a>
 </p>
 <p align="center">
   <a href="">
-    <img alt="test" src="https://github.com/marcofavorito/logaut/workflows/test/badge.svg">
+    <img alt="test" src="https://github.com/whitemech/logaut/workflows/test/badge.svg">
   </a>
   <a href="">
-    <img alt="lint" src="https://github.com/marcofavorito/logaut/workflows/lint/badge.svg">
+    <img alt="lint" src="https://github.com/whitemech/logaut/workflows/lint/badge.svg">
   </a>
   <a href="">
-    <img alt="docs" src="https://github.com/marcofavorito/logaut/workflows/docs/badge.svg">
+    <img alt="docs" src="https://github.com/whitemech/logaut/workflows/docs/badge.svg">
   </a>
   <a href="https://codecov.io/gh/marcofavorito/logaut">
     <img alt="codecov" src="https://codecov.io/gh/marcofavorito/logaut/branch/master/graph/badge.svg?token=FG3ATGP5P5">
@@ -65,7 +65,7 @@ but with human-friendly APIs.
 
 To install the package from PyPI:
 ```
-pip install logaut==0.1.0a0
+pip install logaut==0.1.0
 ```
 
 Make sure to have [Lydia](https://github.com/whitemech/lydia) 
@@ -77,9 +77,11 @@ We suggest the following setup:
 ```
 docker pull whitemech/lydia:latest
 ```
-- Run the following commands:
+- Make the Docker image executable under the name `lydia`.
+  On Linux and MacOS machines, the following commands should work:
 ```
-echo 'docker run -v$(pwd):/home/default -it whitemech/lydia lydia $@' > lydia
+echo '#!/usr/bin/env sh' > lydia
+echo 'docker run -v$(pwd):/home/default whitemech/lydia lydia $@' >> lydia
 sudo chmod u+x lydia
 sudo mv lydia /usr/local/bin/
 ```
