@@ -25,13 +25,24 @@ import re
 import subprocess
 from typing import Match, cast
 
+from pylogics.helpers.misc import enforce
+
+from logaut.exceptions import LogautException
+
 
 def call_lydia(*args) -> str:
     """Call the Lydia CLI tool with the arguments provided."""
+    command = ["lydia", *args]
     try:
-        result = subprocess.run(["lydia", *args], stdout=subprocess.PIPE, check=True)
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = result.stdout.decode()
+        stderr = result.stderr.decode()
+        enforce(result.returncode == 0, exception_cls=LogautException)
         return output
+    except LogautException:
+        raise Exception(  # type: ignore
+            f"the Lydia command {' '.join(command)} failed.\nstdout={output}\nstderr={stderr}"  # type: ignore
+        )
     except Exception as e:
         raise Exception(f"an error occurred while running lydia: {str(e)}") from e
 
