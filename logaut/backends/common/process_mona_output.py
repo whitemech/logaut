@@ -228,5 +228,7 @@ def parse_automaton(output: MONAOutput) -> SymbolicDFA:
             symbolic_guard = from_set_of_guards_to_sympy_formula(
                 guards, output.variable_names
             )
-            automaton._transition_function.setdefault(start_state, {})[end_state] = symbolic_guard
+            automaton._transition_function.setdefault(start_state, {})[
+                end_state
+            ] = symbolic_guard
     return automaton
