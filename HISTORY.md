@@ -6,8 +6,8 @@
 Minor fixes.
 
 - Upgrade development dependencies to their latest version
-- Improve MONA output processing (#57), by exploiting the fact
-  that transitions are already deterministic and automaton is minimal.
+- Improve MONA output processing ([#57](https://github.com/whitemech/logaut/pull/57)), 
+  by exploiting the fact that transitions are already deterministic and automaton is minimal.
 
 # 0.1.0
 
