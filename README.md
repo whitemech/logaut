@@ -65,7 +65,7 @@ but with human-friendly APIs.
 
 To install the package from PyPI:
 ```
-pip install logaut==0.1.0
+pip install logaut
 ```
 
 Make sure to have [Lydia](https://github.com/whitemech/lydia) 
