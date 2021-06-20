@@ -1,5 +1,14 @@
 # History
 
+
+# 0.1.1
+
+Minor fixes.
+
+- Upgrade development dependencies to their latest version
+- Improve MONA output processing (#57), by exploiting the fact
+  that transitions are already deterministic and automaton is minimal.
+
 # 0.1.0
 
 First release. 
