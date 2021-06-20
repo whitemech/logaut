@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "logaut"
-version = "0.1.0"
+version = "0.1.1"
 description = "From logic to automata."
 authors = ["Marco Favorito <favorito@diag.uniroma1.it>"]
 license = "GPL-3.0-or-later"
@@ -64,7 +64,7 @@ markdown = "^3.3.4"
 twine = "^3.3.0"
 hypothesis = "^6.10.0"
 hypothesis-pytest = "^0.19.0"
-ltlf2dfa = {git = "https://github.com/francescofuggitti/ltlf2dfa.git", rev = "develop"}
+ltlf2dfa = "^1.0.1"
 
 
 [build-system]
