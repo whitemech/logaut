@@ -95,7 +95,7 @@ On Windows, make a `.bat` file:
 ```
 docker run --name lydia -v"%cd%":/home/default whitemech/lydia lydia %*
 ```
-And add it to your PATH variables.d 
+And add it to your PATH variable.
 
 
 ## Quickstart
