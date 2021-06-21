@@ -86,9 +86,17 @@ sudo chmod u+x lydia
 sudo mv lydia /usr/local/bin/
 ```
 
+
 This will install an alias to the inline Docker image execution
 in your system PATH. Instead of `/usr/local/bin/`
 you may use another path which is still in the `PATH` variable.
+
+On Windows, make a `.bat` file:
+```
+docker run --name lydia -v"%cd%":/home/default whitemech/lydia lydia %*
+```
+And add it to your PATH variables.d 
+
 
 ## Quickstart
 
