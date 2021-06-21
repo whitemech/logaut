@@ -33,7 +33,7 @@ from logaut.exceptions import LogautException
 
 def call_lydia(*args) -> str:
     """Call the Lydia CLI tool with the arguments provided."""
-    command = ["lydia" if sys.platform == "win32" else "lydia.bat", *args]
+    command = ["lydia" if sys.platform != "win32" else "lydia.bat", *args]
     try:
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = result.stdout.decode()
