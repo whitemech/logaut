@@ -22,6 +22,7 @@
 
 """This module contains utilities to call the Lydia tool from Python."""
 import re
+import sys
 import subprocess
 from typing import Match, cast
 
