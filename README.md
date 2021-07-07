@@ -81,7 +81,7 @@ docker pull whitemech/lydia:latest
   On Linux and MacOS machines, the following commands should work:
 ```
 echo '#!/usr/bin/env sh' > lydia
-echo 'docker run -v$(pwd):/home/default whitemech/lydia lydia $@' >> lydia
+echo 'docker run -v$(pwd):/home/default whitemech/lydia lydia "$@"' >> lydia
 sudo chmod u+x lydia
 sudo mv lydia /usr/local/bin/
 ```
