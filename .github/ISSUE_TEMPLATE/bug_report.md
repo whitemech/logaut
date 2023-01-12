@@ -12,7 +12,7 @@ Describe your issue here.
 
 ### Your environment
 - OS: [e.g. iOS]
-- Python version: [e.g. 3.7.2]
+- Python version: [e.g. 3.8.2]
 - Package Version [e.g. 0.1.2]
 - Anything else you consider helpful.
 

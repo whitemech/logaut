@@ -15,7 +15,6 @@ classifiers = [
     'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',
     'Natural Language :: English',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
 ]
@@ -32,7 +31,7 @@ include = []
 
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 pylogics = "^0.1.0"
 pythomata = "^0.3.2"
 

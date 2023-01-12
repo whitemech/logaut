@@ -176,7 +176,7 @@ dfa = ltl2dfa(formula, backend="my_backend")
 
 To run tests: `tox`
 
-To run only the code tests: `tox -e py3.7`
+To run only the code tests: `tox -e py3.8`
 
 To run only the linters: 
 - `tox -e flake8`
