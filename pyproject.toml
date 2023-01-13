@@ -64,7 +64,7 @@ markdown = "^3.3.4"
 twine = "^3.3.0"
 hypothesis = "^6.10.0"
 hypothesis-pytest = "^0.19.0"
-ltlf2dfa = "^1.0.1"
+ltlf2dfa = "^1.0.2"
 
 
 [build-system]
