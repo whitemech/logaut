@@ -67,16 +67,11 @@ class LTLf2DFABackend(Backend):
     @classmethod
     def __check_ltlf2dfa(cls):
         """Check that the LTLf2DFA package is at the right version."""
-        is_right_version = ltlf2dfa.__version__ == "1.0.1"
+        is_right_version = ltlf2dfa.__version__ == "1.0.2"
         if not is_right_version:
-            raise Exception(
-                "LTLf2DFA needs to be at version 1.0.1. "
-                "Please install it manually using:"
-                "\n"
-                "\tpip install git+https://github.com/whitemech/LTLf2DFA.git@develop#egg=ltlf2dfa"
-            )
+            raise Exception("LTLf2DFA needs to be at version 1.0.2.")
 
-    def __post_init__(self):
+    def init_checks(self) -> None:
         """Do post-initialization checks."""
         self.__check_mona()
         self.__check_ltlf2dfa()
