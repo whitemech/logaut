@@ -30,9 +30,18 @@ Repository:
 """
 import re
 import shutil
-from typing import Match, Tuple, cast
+from functools import singledispatch
+from typing import Match, Set, Tuple, cast
 
 import ltlf2dfa
+from ltlf2dfa.ltlf import (
+    LTLfAtomic,
+    LTLfBinaryOperator,
+    LTLfFalse,
+    LTLfFormula,
+    LTLfTrue,
+    LTLfUnaryOperator,
+)
 from ltlf2dfa.parser.ltlf import LTLfParser
 from ltlf2dfa.parser.pltlf import PLTLfParser
 from pylogics.syntax.base import Formula, Logic
@@ -97,20 +106,28 @@ def _process_formula(formula: Formula) -> SymbolicDFA:
     parser = LTLfParser() if logic == Logic.LTL else PLTLfParser()
     ltlf2dfa_formula = parser(formula_str)
     mona_output_string = ltlf2dfa_formula.to_dfa(mona_dfa_out=True)
-    mona_output = parse_mona_output(postprocess_output(mona_output_string))
+    mona_output = parse_mona_output(
+        postprocess_output(mona_output_string, ltlf2dfa_formula)
+    )
     automaton = parse_automaton(mona_output)
     return automaton
 
 
-def postprocess_output(output: str) -> str:
+def postprocess_output(output: str, formula: LTLfFormula) -> str:
     """
     Post-process MONA output.
 
     Capture the output related to the MONA DFA transitions.
 
-    :param: the raw output from the LTLf2DFA tool.
+    :param output: the raw output from the LTLf2DFA tool.
+    :param formula: the formula
     :return: the output associated to the DFA.
     """
+    # hotfix: remove uppercased symbols
+    propositions = get_atomic_propositions(formula)
+    for proposition in propositions:
+        output = output.replace(proposition.upper(), proposition)
+
     regex = re.compile(
         r".*(?=\nFormula is (valid|unsatisfiable)|A counter-example)",
         flags=re.MULTILINE | re.DOTALL,
@@ -119,3 +136,44 @@ def postprocess_output(output: str) -> str:
     if match is None:
         raise Exception("cannot find automaton description in MONA output.")
     return cast(Match, regex.search(output)).group(0)
+
+
+@singledispatch
+def get_atomic_propositions(formula: LTLfFormula) -> Set[str]:
+    """
+    Get the set of all atomic propositions in the LTLf formula.
+
+    :param formula: an LTLfFormula instance.
+    :return: a set of all atomic propositions.
+    """
+    raise NotImplementedError("Unsupported formula type")
+
+
+@get_atomic_propositions.register
+def _(formula: LTLfAtomic) -> Set[str]:
+    # If the formula is an atomic proposition, just return its symbol
+    return {formula.s}  # Assuming 's' is the symbol of the atomic proposition
+
+
+@get_atomic_propositions.register
+def _(formula: LTLfTrue) -> Set[str]:
+    # If the formula is a boolean constant, return empty
+    return set()
+
+
+@get_atomic_propositions.register
+def _(formula: LTLfFalse) -> Set[str]:
+    # If the formula is a boolean constant, return empty
+    return set()
+
+
+@get_atomic_propositions.register
+def _(formula: LTLfUnaryOperator) -> Set[str]:
+    # If the formula is a unary operator, recursively call for its child
+    return get_atomic_propositions(formula.f)
+
+
+@get_atomic_propositions.register
+def _(formula: LTLfBinaryOperator) -> Set[str]:
+    # If the formula is a binary operator, recursively call for its children and union the results
+    return set().union(*(get_atomic_propositions(f) for f in formula.formulas))
