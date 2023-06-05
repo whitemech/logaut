@@ -88,12 +88,19 @@ class _MetaBackend(ABCMeta):
 class Backend(ABC, metaclass=_MetaBackend):
     """Logaut back-end interface."""
 
+    def __init__(self) -> None:
+        """Initialize the backend."""
+        self.init_checks()
+
     @classmethod
     def __not_supported_error(cls, operation: str) -> Exception:
         """Raise a not supported error."""
         return NotImplementedBackendFunction(
             f"operation '{operation}' is not supported by backend '{cls.__name__}'"
         )
+
+    def init_checks(self) -> None:
+        """Do initialization checks."""
 
     def ltl2dfa(self, formula: Formula) -> DFA:
         """

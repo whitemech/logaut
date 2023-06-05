@@ -55,7 +55,7 @@ class LydiaBackend(Backend):
             )
         # TODO: check Lydia version
 
-    def __post_init__(self):
+    def init_checks(self):
         """Do post-initialization checks."""
         self.__check_lydia()
 
