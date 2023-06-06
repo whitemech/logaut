@@ -22,6 +22,6 @@
 
 """From LOGics to AUTomata"""
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 from .core import fol2dfa, ldl2dfa, ltl2dfa, mso2dfa, pldl2dfa, pltl2dfa

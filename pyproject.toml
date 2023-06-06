@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "logaut"
-version = "0.1.1"
+version = "0.2.0"
 description = "From logic to automata."
 authors = ["Marco Favorito <favorito@diag.uniroma1.it>"]
 license = "GPL-3.0-or-later"
