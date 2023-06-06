@@ -34,16 +34,13 @@ from functools import singledispatch
 from typing import Match, Set, Tuple, cast
 
 import ltlf2dfa
-from ltlf2dfa.ltlf import (
-    LTLfAtomic,
-    LTLfBinaryOperator,
-    LTLfFalse,
-    LTLfFormula,
-    LTLfTrue,
-    LTLfUnaryOperator,
-)
+from ltlf2dfa.base import AtomicFormula, BinaryOperator
+from ltlf2dfa.base import Formula as LTLf2DFAFormula
+from ltlf2dfa.base import UnaryOperator
+from ltlf2dfa.ltlf import LTLfFalse, LTLfFormula, LTLfTrue
 from ltlf2dfa.parser.ltlf import LTLfParser
 from ltlf2dfa.parser.pltlf import PLTLfParser
+from ltlf2dfa.pltlf import PLTLfFalse, PLTLfTrue
 from pylogics.syntax.base import Formula, Logic
 from pythomata.core import DFA
 from pythomata.impl.symbolic import SymbolicDFA
@@ -126,11 +123,12 @@ def postprocess_output(output: str, formula: LTLfFormula) -> str:
     # hotfix: remove uppercased symbols
     propositions = get_atomic_propositions(formula)
     for proposition in propositions:
-        output = output.replace(proposition.upper(), proposition)
+        upper = proposition.upper()
+        output = re.sub(f"(?<=\n ){upper}(?= =)", proposition, output)
 
     regex = re.compile(
         r".*(?=\nFormula is (valid|unsatisfiable)|A counter-example)",
-        flags=re.MULTILINE | re.DOTALL,
+        flags=re.MULTILINE | re.DOTALL | re.IGNORECASE,
     )
     match = regex.search(output)
     if match is None:
@@ -139,41 +137,53 @@ def postprocess_output(output: str, formula: LTLfFormula) -> str:
 
 
 @singledispatch
-def get_atomic_propositions(formula: LTLfFormula) -> Set[str]:
+def get_atomic_propositions(formula: LTLf2DFAFormula) -> Set[str]:
     """
-    Get the set of all atomic propositions in the LTLf formula.
+    Get the set of all atomic propositions in the PPLTL/LTLf formula.
 
-    :param formula: an LTLfFormula instance.
+    :param formula: a PLTL/LTLfFormula instance.
     :return: a set of all atomic propositions.
     """
     raise NotImplementedError("Unsupported formula type")
 
 
 @get_atomic_propositions.register
-def _(formula: LTLfAtomic) -> Set[str]:
-    # If the formula is an atomic proposition, just return its symbol
+def _(formula: AtomicFormula) -> Set[str]:
+    """Return its symbol if the formula is an atomic proposition."""
     return {formula.s}  # Assuming 's' is the symbol of the atomic proposition
 
 
 @get_atomic_propositions.register
 def _(formula: LTLfTrue) -> Set[str]:
-    # If the formula is a boolean constant, return empty
+    """Return empty if the formula is a boolean constant."""
     return set()
 
 
 @get_atomic_propositions.register
 def _(formula: LTLfFalse) -> Set[str]:
-    # If the formula is a boolean constant, return empty
+    """Return empty if the formula is a boolean constant."""
     return set()
 
 
 @get_atomic_propositions.register
-def _(formula: LTLfUnaryOperator) -> Set[str]:
+def _(formula: PLTLfTrue) -> Set[str]:
+    """Return empty if the formula is a boolean constant."""
+    return set()
+
+
+@get_atomic_propositions.register
+def _(formula: PLTLfFalse) -> Set[str]:
+    """Return empty if the formula is a boolean constant."""
+    return set()
+
+
+@get_atomic_propositions.register
+def _(formula: UnaryOperator) -> Set[str]:
     # If the formula is a unary operator, recursively call for its child
     return get_atomic_propositions(formula.f)
 
 
 @get_atomic_propositions.register
-def _(formula: LTLfBinaryOperator) -> Set[str]:
+def _(formula: BinaryOperator) -> Set[str]:
     # If the formula is a binary operator, recursively call for its children and union the results
     return set().union(*(get_atomic_propositions(f) for f in formula.formulas))
