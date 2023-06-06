@@ -50,7 +50,11 @@ from logaut.backends.common.process_mona_output import (
     parse_automaton,
     parse_mona_output,
 )
+from logaut.backends.common.utils import _check_atoms_match_regex
 from logaut.backends.ltlf2dfa.to_ltlf2dfa_formula import to_string
+
+# this is stricter than the actual regex used by ltlf2dfa (no double quotes supported for now).
+_LTLf2DFA_SYMBOL_REGEX = "[a-z_][a-z0-9_]*"
 
 
 class LTLf2DFABackend(Backend):
@@ -98,6 +102,8 @@ def _process_formula(formula: Formula) -> SymbolicDFA:
     :param formula: the formula
     :return: the DFA
     """
+    _check_atoms_match_regex(formula, _LTLf2DFA_SYMBOL_REGEX, "LTLf2DFA")
+
     logic = formula.logic
     formula_str = to_string(formula)
     parser = LTLfParser() if logic == Logic.LTL else PLTLfParser()

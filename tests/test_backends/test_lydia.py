@@ -21,14 +21,19 @@
 #
 
 """Tests for Lydia backend."""
-from hypothesis import HealthCheck, given, settings
+import re
+
+from hypothesis import HealthCheck, assume, given, settings
 from hypothesis.extra.lark import from_lark
 from pylogics.parsers.ldl import __parser as ldl_parser
 from pylogics.parsers.ldl import parse_ldl
 from pylogics.parsers.ltl import __parser as ltl_parser
 from pylogics.parsers.ltl import parse_ltl
+from pylogics.syntax.base import Formula
 from pythomata.core import DFA
 
+from logaut.backends.common.find_atoms.base import find_atoms
+from logaut.backends.lydia.core import _LYDIA_SYMBOL_REGEX
 from logaut.core import ldl2dfa, ltl2dfa
 
 lydia_hypothesis_settings = settings(
@@ -38,11 +43,22 @@ lydia_hypothesis_settings = settings(
 )
 
 
+def skip_if_for_lydia(formula: Formula) -> None:
+    """Skip test if formula might not be acceptable by the lydia parser."""
+    atoms = find_atoms(formula)
+    for atom in atoms:
+        assume(re.fullmatch(_LYDIA_SYMBOL_REGEX, atom) is not None)
+
+
 @lydia_hypothesis_settings
 @given(from_lark(ldl_parser._parser))
 def test_lydia_backend_ldl(formula_str):
     """Test lydia backend for LDL formulae."""
+    assume(formula_str.isascii())
+    assume(formula_str != "last")
+    assume(formula_str != "end")
     formula = parse_ldl(formula_str)
+    skip_if_for_lydia(formula)
     output = ldl2dfa(formula, backend="lydia")
     assert isinstance(output, DFA)
 
@@ -52,5 +68,6 @@ def test_lydia_backend_ldl(formula_str):
 def test_lydia_backend_ltl(formula_str):
     """Test lydia backend for LTL formulae."""
     formula = parse_ltl(formula_str)
+    skip_if_for_lydia(formula)
     output = ltl2dfa(formula, backend="lydia")
     assert isinstance(output, DFA)

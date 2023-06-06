@@ -33,9 +33,13 @@ from logaut.backends.common.process_mona_output import (
     parse_automaton,
     parse_mona_output,
 )
+from logaut.backends.common.utils import _check_atoms_match_regex
 from logaut.backends.lydia._lydia_utils import call_lydia, postprocess_lydia_output
 from logaut.backends.lydia.to_lydia_grammar import to_string
 from logaut.helpers import temporary_directory
+
+# this is stricter than the actual regex used by lydia.
+_LYDIA_SYMBOL_REGEX = "[a-z_][a-z0-9_]*"
 
 
 class LydiaBackend(Backend):
@@ -76,6 +80,7 @@ def _process_formula(formula: Formula) -> SymbolicDFA:
     :param formula: the formula
     :return: the DFA
     """
+    _check_atoms_match_regex(formula, _LYDIA_SYMBOL_REGEX, "Lydia")
     formula_str = to_string(formula)
 
     with temporary_directory() as tmpdir:
