@@ -24,7 +24,7 @@
 
 import re
 from dataclasses import dataclass
-from typing import Dict, Match, Set, Tuple, cast
+from typing import Dict, List, Match, Set, Tuple, cast
 
 from pythomata.impl.symbolic import SymbolicDFA
 from sympy import And, Not, Or, Symbol, true
@@ -192,7 +192,7 @@ def from_set_of_guards_to_sympy_formula(
         literal = Symbol(variable_names[index])
         return literal if value else Not(literal)
 
-    processed_guards = []
+    processed_guards: List[BooleanFunction] = []
     for guard in guards:
         if guard == "":
             processed_guards.append(true)
