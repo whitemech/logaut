@@ -34,6 +34,7 @@ from logaut.core import ldl2dfa, ltl2dfa
 lydia_hypothesis_settings = settings(
     suppress_health_check=[HealthCheck.too_slow, HealthCheck.filter_too_much],
     deadline=10_000,
+    max_examples=1_000,
 )
 
 
