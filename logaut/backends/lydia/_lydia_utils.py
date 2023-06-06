@@ -22,8 +22,8 @@
 
 """This module contains utilities to call the Lydia tool from Python."""
 import re
-import sys
 import subprocess
+import sys
 from typing import Match, cast
 
 from pylogics.helpers.misc import enforce
@@ -34,6 +34,8 @@ from logaut.exceptions import LogautException
 def call_lydia(*args) -> str:
     """Call the Lydia CLI tool with the arguments provided."""
     command = ["lydia" if sys.platform != "win32" else "lydia.bat", *args]
+    output = ""
+    stderr = ""
     try:
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = result.stdout.decode()
@@ -42,7 +44,7 @@ def call_lydia(*args) -> str:
         return output
     except LogautException:
         raise Exception(  # type: ignore
-            f"the Lydia command {' '.join(command)} failed.\nstdout={output}\nstderr={stderr}"  # type: ignore
+            f"the Lydia command {' '.join(command)} failed.\nstdout={output}\nstderr={stderr}"
         )
     except Exception as e:
         raise Exception(f"an error occurred while running lydia: {str(e)}") from e
