@@ -130,7 +130,7 @@ def postprocess_output(output: str, formula: LTLfFormula) -> str:
     propositions = get_atomic_propositions(formula)
     for proposition in propositions:
         upper = proposition.upper()
-        output = re.sub(f"(?<=\n ){upper}(?= =)", proposition, output)
+        output = re.sub(f"(?<= ){upper}(?= )", proposition, output)
 
     regex = re.compile(
         r".*(?=\nFormula is (valid|unsatisfiable)|A counter-example)",
