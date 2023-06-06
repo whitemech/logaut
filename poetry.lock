@@ -1570,10 +1570,27 @@ docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker
 testing = ["flake8 (<5)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)"]
 
 [[package]]
+name = "lark"
+version = "1.1.5"
+description = "a modern parsing library"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "lark-1.1.5-py3-none-any.whl", hash = "sha256:8476f9903e93fbde4f6c327f74d79e9b4bd0ed9294c5dfa3164ab8c581b5de2a"},
+    {file = "lark-1.1.5.tar.gz", hash = "sha256:4b534eae1f9af5b4ea000bea95776350befe1981658eea3820a01c37e504bb4d"},
+]
+
+[package.extras]
+atomic-cache = ["atomicwrites"]
+nearley = ["js2py"]
+regex = ["regex"]
+
+[[package]]
 name = "lark-parser"
 version = "0.11.3"
 description = "a modern parsing library"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 files = [
@@ -2540,18 +2557,18 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pylogics"
-version = "0.1.1"
+version = "0.2.1"
 description = "A Python library for logic formalisms representation and manipulation."
 category = "main"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pylogics-0.1.1-py3-none-any.whl", hash = "sha256:4a2510701e0aa1a86f4d7369e8c3d802041daa2f8327e2ce7f908c2d5f2146b7"},
-    {file = "pylogics-0.1.1.tar.gz", hash = "sha256:d46b493183f4b54bdef1de6563f3f984cf4e1039ebf94ac0251cf869dc358778"},
+    {file = "pylogics-0.2.1-py3-none-any.whl", hash = "sha256:de536b6e335d30bc7956dfef89f281c4aaa1f787be7547450d613c8d268bf176"},
+    {file = "pylogics-0.2.1.tar.gz", hash = "sha256:fdd9e15ba9f3d610616e92d22186ab55608d553ab80ae605f65828782e92d247"},
 ]
 
 [package.dependencies]
-lark-parser = ">=0.11.2,<0.12.0"
+lark = ">=1.1.5,<2.0.0"
 
 [[package]]
 name = "pymdown-extensions"
@@ -3230,7 +3247,8 @@ files = [
     {file = "ruamel.yaml.clib-0.2.7-cp310-cp310-win32.whl", hash = "sha256:763d65baa3b952479c4e972669f679fe490eee058d5aa85da483ebae2009d231"},
     {file = "ruamel.yaml.clib-0.2.7-cp310-cp310-win_amd64.whl", hash = "sha256:d000f258cf42fec2b1bbf2863c61d7b8918d31ffee905da62dede869254d3b8a"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:045e0626baf1c52e5527bd5db361bc83180faaba2ff586e763d3d5982a876a9e"},
-    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_12_6_arm64.whl", hash = "sha256:721bc4ba4525f53f6a611ec0967bdcee61b31df5a56801281027a3a6d1c2daf5"},
+    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_13_0_arm64.whl", hash = "sha256:1a6391a7cabb7641c32517539ca42cf84b87b667bad38b78d4d42dd23e957c81"},
+    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-manylinux2014_aarch64.whl", hash = "sha256:9c7617df90c1365638916b98cdd9be833d31d337dbcd722485597b43c4a215bf"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl", hash = "sha256:41d0f1fa4c6830176eef5b276af04c89320ea616655d01327d5ce65e50575c94"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-win32.whl", hash = "sha256:f6d3d39611ac2e4f62c3128a9eed45f19a6608670c5a2f4f07f24e8de3441d38"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-win_amd64.whl", hash = "sha256:da538167284de58a52109a9b89b8f6a53ff8437dd6dc26d33b57bf6699153122"},
@@ -3898,4 +3916,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "e34fa0ab29774e4874224d881afee86c2a02f5598c4bc011966327562840cf1a"
+content-hash = "dfcb47cf87200709616d62bb419e6ba4e9d1ecdc4b74073c3b9041349f3eb846"
