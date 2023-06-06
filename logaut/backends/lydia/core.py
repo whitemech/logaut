@@ -35,6 +35,7 @@ from logaut.backends.common.process_mona_output import (
 )
 from logaut.backends.lydia._lydia_utils import call_lydia, postprocess_lydia_output
 from logaut.backends.lydia.to_lydia_grammar import to_string
+from logaut.helpers import temporary_directory
 
 
 class LydiaBackend(Backend):
@@ -76,9 +77,19 @@ def _process_formula(formula: Formula) -> SymbolicDFA:
     :return: the DFA
     """
     formula_str = to_string(formula)
-    output = call_lydia(
-        f"--logic={formula.logic.value}f", f"--inline={formula_str}", "-p"
-    )
+
+    with temporary_directory() as tmpdir:
+        tmpfilename = "formula.txt"
+        tmpfile = tmpdir / tmpfilename
+        tmpfile = tmpfile.resolve()
+        tmpfile.write_text(formula_str)
+
+        output = call_lydia(
+            f"--logic={formula.logic.value}f",
+            f"--file={tmpfilename}",
+            "-p",
+            cwd=str(tmpdir),
+        )
     mona_output_string = postprocess_lydia_output(output)
     mona_output = parse_mona_output(mona_output_string)
     automaton = parse_automaton(mona_output)

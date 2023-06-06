@@ -31,13 +31,15 @@ from pylogics.helpers.misc import enforce
 from logaut.exceptions import LogautException
 
 
-def call_lydia(*args) -> str:
+def call_lydia(*args, cwd: str = ".") -> str:
     """Call the Lydia CLI tool with the arguments provided."""
     command = ["lydia" if sys.platform != "win32" else "lydia.bat", *args]
     output = ""
     stderr = ""
     try:
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(
+            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd
+        )
         output = result.stdout.decode()
         stderr = result.stderr.decode()
         enforce(result.returncode == 0, exception_cls=LogautException)

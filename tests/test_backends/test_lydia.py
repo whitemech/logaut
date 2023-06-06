@@ -21,7 +21,7 @@
 #
 
 """Tests for Lydia backend."""
-from hypothesis import given
+from hypothesis import HealthCheck, given, settings
 from hypothesis.extra.lark import from_lark
 from pylogics.parsers.ldl import __parser as ldl_parser
 from pylogics.parsers.ldl import parse_ldl
@@ -30,10 +30,14 @@ from pylogics.parsers.ltl import parse_ltl
 from pythomata.core import DFA
 
 from logaut.core import ldl2dfa, ltl2dfa
-from tests.conftest import suppress_health_checks_for_lark
+
+lydia_hypothesis_settings = settings(
+    suppress_health_check=[HealthCheck.too_slow, HealthCheck.filter_too_much],
+    deadline=10_000,
+)
 
 
-@suppress_health_checks_for_lark
+@lydia_hypothesis_settings
 @given(from_lark(ldl_parser._parser))
 def test_lydia_backend_ldl(formula_str):
     """Test lydia backend for LDL formulae."""
@@ -42,7 +46,7 @@ def test_lydia_backend_ldl(formula_str):
     assert isinstance(output, DFA)
 
 
-@suppress_health_checks_for_lark
+@lydia_hypothesis_settings
 @given(from_lark(ltl_parser._parser))
 def test_lydia_backend_ltl(formula_str):
     """Test lydia backend for LTL formulae."""
