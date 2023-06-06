@@ -138,7 +138,9 @@ def postprocess_output(output: str, formula: LTLfFormula) -> str:
     )
     match = regex.search(output)
     if match is None:
-        raise Exception("cannot find automaton description in MONA output.")
+        raise Exception(
+            f"cannot find automaton description in MONA output. MONA Output: '{output}'"
+        )
     return cast(Match, regex.search(output)).group(0)
 
 
