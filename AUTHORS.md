@@ -6,4 +6,7 @@
 
 ## Contributors
 
-None yet. [Why not be the first](./contributing.md)? 
+* [Roberto Gallotta](https://github.com/gallorob)
+
+
+Here you can find the contribution guide: [Contributing](./contributing.md).
