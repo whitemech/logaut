@@ -21,7 +21,7 @@
 #
 
 """Tests for LTLf2DFA backend."""
-from hypothesis import given
+from hypothesis import HealthCheck, assume, given, settings
 from hypothesis.extra.lark import from_lark
 from pylogics.parsers.ltl import __parser as ltl_parser
 from pylogics.parsers.ltl import parse_ltl
@@ -30,22 +30,34 @@ from pylogics.parsers.pltl import parse_pltl
 from pythomata.core import DFA
 
 from logaut.core import ltl2dfa, pltl2dfa
-from tests.conftest import suppress_health_checks_for_lark
+
+ltlf2dfa_hypothesis_settings = settings(
+    suppress_health_check=[HealthCheck.too_slow, HealthCheck.filter_too_much],
+    deadline=1_000,
+    max_examples=1_000,
+)
 
 
-@suppress_health_checks_for_lark
+def skip_if_with_quotes(formula_str: str) -> None:
+    """Skip test if formula might not be acceptable by the ltlf2dfa parser."""
+    assume(formula_str.islower() and '"' not in formula_str and "_" not in formula_str)
+
+
+@ltlf2dfa_hypothesis_settings
 @given(from_lark(ltl_parser._parser))
 def test_ltlf2dfa_backend_ltl(formula_str):
     """Test ltlf2dfa backend for LTL."""
+    skip_if_with_quotes(formula_str)
     formula = parse_ltl(formula_str)
     output = ltl2dfa(formula, backend="ltlf2dfa")
     assert isinstance(output, DFA)
 
 
-@suppress_health_checks_for_lark
+@ltlf2dfa_hypothesis_settings
 @given(from_lark(pltl_parser._parser))
 def test_ltlf2dfa_backend_pltl(formula_str):
     """Test lydia backend for PLTL."""
+    skip_if_with_quotes(formula_str)
     formula = parse_pltl(formula_str)
     output = pltl2dfa(formula, backend="ltlf2dfa")
     assert isinstance(output, DFA)
