@@ -33,7 +33,7 @@ include = []
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pylogics = "^0.1.0"
+pylogics = "^0.2.1"
 pythomata = "^0.3.2"
 
 
