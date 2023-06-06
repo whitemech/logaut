@@ -2,7 +2,7 @@
 name = "logaut"
 version = "0.2.0"
 description = "From logic to automata."
-authors = ["Marco Favorito <favorito@diag.uniroma1.it>"]
+authors = ["Marco Favorito <marco.favorito@gmail.com>"]
 license = "GPL-3.0-or-later"
 readme = "README.md"
 homepage = "https://marcofavorito.me/logaut"
